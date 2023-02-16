@@ -1,10 +1,26 @@
+import { resolve } from 'node:path'
 import prompts from 'prompts'
 import chalk from 'chalk'
 import validatePkg from 'validate-npm-package-name'
+import { readPackageSync } from 'read-pkg'
 
 const log = console.log
 
-const templates = []
+export interface ITemplateItem {
+  title: string
+  value: string
+}
+
+const templates: ITemplateItem[] = [
+  {
+    title: 'node',
+    value: 'node'
+  },
+  {
+    title: 'vue',
+    value: 'vue'
+  }
+]
 
 async function init () {
   const result = await prompts([
@@ -22,10 +38,16 @@ async function init () {
       type: 'select',
       name: 'framework',
       message: 'Select a framework',
-      choices: []
+      choices: templates
     }
   ])
-  log(chalk.blue(JSON.stringify(result)), 'result')
+
+  const { framework, projectName } = result
+
+  // Rename package.json name
+  const tmpPkgPath = resolve(__dirname, `../templates/${framework}`)
+  const pkg = readPackageSync({ cwd: tmpPkgPath })
+  console.log(pkg)
 }
 
 init().catch((err) => {
