@@ -1,8 +1,9 @@
-import { resolve } from 'node:path'
+import { resolve, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import prompts from 'prompts'
 import chalk from 'chalk'
 import validatePkg from 'validate-npm-package-name'
-import { readPackageSync } from 'read-pkg'
 import parseArgs from 'minimist'
 
 const log = console.log
@@ -52,13 +53,28 @@ async function init () {
 
   // Get project root path
   const rootPath = isCurDir ? cwd : resolve(cwd, projectName)
-  console.log(rootPath, 'rootPath')
 
-  // Rename package.json name
-  const tmpPkgPath = resolve(__dirname, `../templates/${framework}`)
-  const pkg = readPackageSync({ cwd: tmpPkgPath })
+  // Get project template path
+  const templatePath = resolve(dirname(fileURLToPath(import.meta.url)), `../templates/${framework}`)
+
+  // Copy framework to project root path
+  if (!existsSync(rootPath)) {
+    mkdirSync(rootPath)
+  }
+  copySync(templatePath, rootPath)
+
+  // Rename project package.json name
+  const projectPkgPath = resolve(rootPath, 'package.json')
+  const pkg = readJsonSync(projectPkgPath)
   pkg.name = projectName
-  console.log(pkg)
+  writeJsonSync(projectPkgPath, pkg, { spaces: 2 })
+
+  // Tip install and start project
+  if (!isCurDir) {
+    log(chalk.blue(`cd ${projectName}`))
+  }
+  log(chalk.red('pnpm install'))
+  log(chalk.green('pnpm dev'))
 }
 
 init().catch((err) => {
