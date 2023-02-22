@@ -18,6 +18,9 @@
     "dist"
   ],
   "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint --fix ."
   },
   "devDependencies": {
