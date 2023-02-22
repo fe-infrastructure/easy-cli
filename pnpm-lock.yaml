@@ -2,11 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@eye-socket/eslint-config-ts': ^0.0.2
+  '@types/minimist': ^1.2.2
   '@types/node': ^18.13.0
   '@types/prompts': ^2.4.2
   '@types/validate-npm-package-name': ^4.0.0
   chalk: ^5.2.0
   eslint: ^8.34.0
+  minimist: ^1.2.8
   prompts: ^2.4.2
   read-pkg: ^7.1.0
   typescript: ^4.9.5
@@ -15,12 +17,14 @@ specifiers:
 
 dependencies:
   chalk: 5.2.0
+  minimist: 1.2.8
   prompts: 2.4.2
   read-pkg: 7.1.0
   validate-npm-package-name: 5.0.0
 
 devDependencies:
   '@eye-socket/eslint-config-ts': 0.0.2_7kw3g6rralp5ps6mg3uyzz6azm
+  '@types/minimist': 1.2.2
   '@types/node': 18.13.0
   '@types/prompts': 2.4.2
   '@types/validate-npm-package-name': 4.0.0
@@ -871,6 +875,10 @@ packages:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: true
+
+  /@types/minimist/1.2.2:
+    resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
   /@types/node/18.13.0:
@@ -2416,7 +2424,6 @@ packages:
 
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: true
 
   /mkdirp/1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}

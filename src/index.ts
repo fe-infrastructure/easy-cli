@@ -3,6 +3,7 @@ import prompts from 'prompts'
 import chalk from 'chalk'
 import validatePkg from 'validate-npm-package-name'
 import { readPackageSync } from 'read-pkg'
+import parseArgs from 'minimist'
 
 const log = console.log
 
@@ -21,6 +22,11 @@ const templates: ITemplateItem[] = [
     value: 'vue'
   }
 ]
+
+const cwd = process.cwd()
+
+const args = parseArgs(process.argv.slice(2))
+const isCurDir = args._.includes('.')
 
 async function init () {
   const result = await prompts([
@@ -44,9 +50,14 @@ async function init () {
 
   const { framework, projectName } = result
 
+  // Get project root path
+  const rootPath = isCurDir ? cwd : resolve(cwd, projectName)
+  console.log(rootPath, 'rootPath')
+
   // Rename package.json name
   const tmpPkgPath = resolve(__dirname, `../templates/${framework}`)
   const pkg = readPackageSync({ cwd: tmpPkgPath })
+  pkg.name = projectName
   console.log(pkg)
 }
 
