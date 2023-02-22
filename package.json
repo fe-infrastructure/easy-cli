@@ -25,7 +25,8 @@
   "files": [
     "index.js",
     "dist",
-    "templates"
+    "templates",
+    "package.json"
   ],
   "scripts": {
     "dev": "unbuild --stub",
@@ -35,13 +36,14 @@
   },
   "dependencies": {
     "chalk": "^5.2.0",
+    "fs-extra": "^11.1.0",
     "minimist": "^1.2.8",
     "prompts": "^2.4.2",
-    "read-pkg": "^7.1.0",
     "validate-npm-package-name": "^5.0.0"
   },
   "devDependencies": {
     "@eye-socket/eslint-config-ts": "^0.0.2",
+    "@types/fs-extra": "^11.0.1",
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.13.0",
     "@types/prompts": "^2.4.2",
