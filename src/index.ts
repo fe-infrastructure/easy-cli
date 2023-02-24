@@ -6,7 +6,6 @@ import color from 'picocolors'
 import validatePkg from 'validate-npm-package-name'
 import parseArgs from 'minimist'
 import boxen from 'boxen'
-import pupa from 'pupa'
 
 const log = console.log
 
@@ -78,7 +77,7 @@ async function main () {
   }
   template += '\n\npnpm install\n\npnpm dev'
   const message = boxen(
-    pupa(template, {}),
+    template,
     {
       padding: 1,
       margin: 1,
