@@ -1,25 +1,27 @@
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync } from 'fs-extra'
-import prompts from 'prompts'
-import chalk from 'chalk'
+import { intro, text, select, outro } from '@clack/prompts'
+import color from 'picocolors'
 import validatePkg from 'validate-npm-package-name'
 import parseArgs from 'minimist'
+import boxen from 'boxen'
+import pupa from 'pupa'
 
 const log = console.log
 
 export interface ITemplateItem {
-  title: string
+  label: string
   value: string
 }
 
 const templates: ITemplateItem[] = [
   {
-    title: 'node',
+    label: 'node',
     value: 'node'
   },
   {
-    title: 'vue',
+    label: 'vue',
     value: 'vue'
   }
 ]
@@ -29,27 +31,24 @@ const cwd = process.cwd()
 const args = parseArgs(process.argv.slice(2))
 const isCurDir = args._.includes('.')
 
-async function init () {
-  const result = await prompts([
-    {
-      type: 'text',
-      name: 'projectName',
-      message: 'Project name',
-      validate: (value) => {
-        const { validForNewPackages, validForOldPackages, errors, warnings } = validatePkg(value)
-        if (validForNewPackages || validForOldPackages) return true
-        return (errors || warnings || 'Invalid package.json name').toString()
-      }
-    },
-    {
-      type: 'select',
-      name: 'framework',
-      message: 'Select a framework',
-      choices: templates
-    }
-  ])
+async function main () {
+  log()
+  intro(color.bgBlue(' create-app '))
 
-  const { framework, projectName } = result
+  const projectName = (await text({
+    message: 'Project name',
+    placeholder: 'Enter project name',
+    validate: (value) => {
+      const { validForNewPackages, validForOldPackages, errors, warnings } = validatePkg(value)
+      if (validForNewPackages || validForOldPackages) return
+      return (errors || warnings || 'Invalid package.json name').toString()
+    }
+  })).toString()
+
+  const framework = (await select({
+    message: 'Select a framework',
+    options: templates
+  })).toString()
 
   // Get project root path
   const rootPath = isCurDir ? cwd : resolve(cwd, projectName)
@@ -69,14 +68,25 @@ async function init () {
   pkg.name = projectName
   writeJsonSync(projectPkgPath, pkg, { spaces: 2 })
 
+  // End creation
+  outro('End creation and start using!')
+
   // Tip install and start project
+  let template = ''
   if (!isCurDir) {
-    log(chalk.blue(`cd ${projectName}`))
+    template += `cd ${projectName}`
   }
-  log(chalk.red('pnpm install'))
-  log(chalk.green('pnpm dev'))
+  template += '\n\npnpm install\n\npnpm dev'
+  const message = boxen(
+    pupa(template, {}),
+    {
+      padding: 1,
+      margin: 1,
+      borderColor: 'yellow',
+      borderStyle: 'round'
+    }
+  )
+  log(message)
 }
 
-init().catch((err) => {
-  console.log(err)
-})
+main().catch(console.error)
