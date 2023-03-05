@@ -1,5 +1,5 @@
 {
-  "name": "@eye-socket/easy-cli",
+  "name": "@eye-socket/create-easy-cli",
   "type": "module",
   "version": "0.0.1",
   "description": "A simple scaffolding for generating front-end development templates",
@@ -13,7 +13,7 @@
   ],
   "main": "./dist/index.mjs",
   "bin": {
-    "@eye-socket/easy-cli": "index.js"
+    "@eye-socket/create-easy-cli": "index.js"
   },
   "files": [
     "index.js",
