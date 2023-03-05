@@ -1,11 +1,13 @@
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync } from 'fs-extra'
+import * as fsExtra from 'fs-extra'
 import { intro, text, select, outro } from '@clack/prompts'
 import color from 'picocolors'
 import validatePkg from 'validate-npm-package-name'
 import parseArgs from 'minimist'
 import boxen from 'boxen'
+
+const { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync } = fsExtra
 
 const log = console.log
 
