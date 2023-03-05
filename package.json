@@ -1,7 +1,7 @@
 {
   "name": "@eye-socket/create-easy-cli",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A simple scaffolding for generating front-end development templates",
   "author": "yanquanfahei <1449826851@qq.com>",
   "license": "MIT",
