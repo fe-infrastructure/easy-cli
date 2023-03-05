@@ -1,7 +1,7 @@
 {
   "name": "@eye-socket/create-easy-cli",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple scaffolding for generating front-end development templates",
   "author": "yanquanfahei <1449826851@qq.com>",
   "license": "MIT",
@@ -13,7 +13,8 @@
   ],
   "main": "./index.js",
   "bin": {
-    "@eye-socket/create-easy-cli": "index.js"
+    "create-easy-cli": "index.js",
+    "cva": "index.js"
   },
   "files": [
     "index.js",
