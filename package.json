@@ -24,7 +24,6 @@
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
-    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "release": "bumpp package.json --commit --push --tag && pnpm -r publish --access public"
   },
