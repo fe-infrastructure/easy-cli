@@ -1,35 +1,65 @@
 {
-  "name": "node-template",
+  "name": "pkg-name",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.26.0",
   "description": "",
-  "author": "",
+  "author": {
+    "name": "眼圈发黑",
+    "email": "1449826851@qq.com"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/yanquanfahei/pkg-name#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanquanfahei/pkg-name.git"
+  },
+  "bugs": "https://github.com/yanquanfahei/pkg-name/issues",
   "keywords": [],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
-  "main": "index.js",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "README.md"
   ],
+  "engines": {
+    "node": ">=16.11.0"
+  },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "simple-git-hooks",
     "dev": "unbuild --stub",
     "build": "unbuild",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix",
+    "prepublishOnly": "pnpm build",
     "release": "bumpp package.json --commit --push --tag && pnpm publish --access public"
   },
   "devDependencies": {
     "@eye-socket/eslint-config-ts": "^0.0.2",
     "@types/node": "^18.13.0",
     "bumpp": "^9.0.0",
+    "chalk": "^5.2.0",
     "eslint": "^8.34.0",
+    "lint-staged": "^13.1.2",
+    "simple-git-hooks": "^2.8.1",
     "typescript": "^4.9.5",
-    "unbuild": "^1.1.1"
+    "unbuild": "^1.1.1",
+    "vitest": "^0.29.2"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,json5}": "eslint --fix"
   }
 }
