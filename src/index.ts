@@ -7,9 +7,13 @@ import validatePkg from 'validate-npm-package-name'
 import parseArgs from 'minimist'
 import boxen from 'boxen'
 
-const { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync } = fs
+const { copySync, existsSync, mkdirSync, readJsonSync, writeJsonSync, readFileSync, writeFileSync } = fs
 
 const log = console.log
+
+const replacePkgName = (str: string, pkgName: string) => {
+  return str.replace('pkg-name', pkgName)
+}
 
 export interface ITemplateItem {
   label: string
@@ -63,11 +67,19 @@ async function main () {
   }
   copySync(templatePath, rootPath)
 
-  // Rename project package.json name
+  // Rename package.json pkg-name
   const projectPkgPath = resolve(rootPath, 'package.json')
   const pkg = readJsonSync(projectPkgPath)
   pkg.name = projectName
+  pkg.homepage = replacePkgName(pkg.homepage, projectName)
+  pkg.repository.url = replacePkgName(pkg.repository.url, projectName)
+  pkg.bugs = replacePkgName(pkg.bugs, projectName)
   writeJsonSync(projectPkgPath, pkg, { spaces: 2 })
+
+  // Rename readme.md pkg-name
+  const readmePath = resolve(rootPath, 'README.md')
+  const readmeContent = readFileSync(readmePath, { encoding: 'utf-8' })
+  writeFileSync(readmePath, replacePkgName(readmeContent, projectName))
 
   // End creation
   outro('End creation and start using!')
