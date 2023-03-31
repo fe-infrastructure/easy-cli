@@ -28,6 +28,10 @@ const templates: ITemplateItem[] = [
   {
     label: 'vue',
     value: 'vue'
+  },
+  {
+    label: 'uni-app',
+    value: 'uni-app'
   }
 ]
 
