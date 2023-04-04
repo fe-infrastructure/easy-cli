@@ -40,6 +40,8 @@ const cwd = process.cwd()
 const args = parseArgs(process.argv.slice(2))
 const isCurDir = args._.includes('.')
 
+const _template = args.template
+
 async function main () {
   log()
   intro(color.bgBlue(' create-app '))
@@ -54,10 +56,13 @@ async function main () {
     }
   })).toString()
 
-  const framework = (await select({
-    message: 'Select a framework',
-    options: templates
-  })).toString()
+  let framework = templates.some(tmp => tmp.value === _template) ? _template : ''
+  if (!framework) {
+    framework = (await select({
+      message: 'Select a framework',
+      options: templates
+    })).toString()
+  }
 
   // Get project root path
   const rootPath = isCurDir ? cwd : resolve(cwd, projectName)
