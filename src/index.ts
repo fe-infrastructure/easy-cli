@@ -79,10 +79,10 @@ async function main () {
   // Rename package.json pkg-name
   const projectPkgPath = resolve(rootPath, 'package.json')
   const pkg = readJsonSync(projectPkgPath)
-  pkg.name = projectName
-  pkg.homepage = replacePkgName(pkg.homepage, projectName)
-  pkg.repository.url = replacePkgName(pkg.repository.url, projectName)
-  pkg.bugs = replacePkgName(pkg.bugs, projectName)
+  pkg.name && (pkg.name = projectName)
+  pkg.homepage && (pkg.homepage = replacePkgName(pkg.homepage, projectName))
+  pkg.repository && pkg.repository.url && (pkg.repository.url = replacePkgName(pkg.repository.url, projectName))
+  pkg.bugs && (pkg.bugs = replacePkgName(pkg.bugs, projectName))
   writeJsonSync(projectPkgPath, pkg, { spaces: 2 })
 
   // Rename readme.md pkg-name
