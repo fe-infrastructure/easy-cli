@@ -36,11 +36,12 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "simple-git-hooks",
+    "postinstall": "npx simple-git-hooks",
     "dev": "unbuild --stub",
     "build": "unbuild",
     "lint": "eslint --fix",
     "prepublishOnly": "pnpm build",
+    "test": "vitest",
     "release": "bumpp package.json --commit --push --tag && pnpm publish --access public"
   },
   "devDependencies": {
