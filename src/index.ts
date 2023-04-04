@@ -41,20 +41,25 @@ const args = parseArgs(process.argv.slice(2))
 const isCurDir = args._.includes('.')
 
 const _template = args.template
+const _projectName = args.project
 
 async function main () {
   log()
   intro(color.bgBlue(' create-app '))
 
-  const projectName = (await text({
-    message: 'Project name',
-    placeholder: 'Enter project name',
-    validate: (value) => {
-      const { validForNewPackages, validForOldPackages, errors, warnings } = validatePkg(value)
-      if (validForNewPackages || validForOldPackages) return
-      return (errors || warnings || 'Invalid package.json name').toString()
-    }
-  })).toString()
+  let projectName = _projectName
+
+  if (!projectName) {
+    projectName = (await text({
+      message: 'Project name',
+      placeholder: 'Enter project name',
+      validate: (value) => {
+        const { validForNewPackages, validForOldPackages, errors, warnings } = validatePkg(value)
+        if (validForNewPackages || validForOldPackages) return
+        return (errors || warnings || 'Invalid package.json name').toString()
+      }
+    })).toString()
+  }
 
   let framework = templates.some(tmp => tmp.value === _template) ? _template : ''
   if (!framework) {
