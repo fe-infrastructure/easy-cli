@@ -26,7 +26,8 @@
     "dev": "unbuild --stub",
     "build": "unbuild",
     "prepublishOnly": "npm run build",
-    "release": "bumpp package.json --commit --push --tag && pnpm publish --access public"
+    "release": "bumpp package.json --commit --push --tag && pnpm publish --access public",
+    "test": "cd fixtures && node ../index.js --template node --project node-example && node ../index.js --template vue --project vue-example && node ../index.js --template uni-app --project uni-example"
   },
   "dependencies": {
     "@clack/prompts": "^0.5.1",

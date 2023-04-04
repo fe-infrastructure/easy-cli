@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "node-example",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@7.26.0",
@@ -9,12 +9,12 @@
     "email": "1449826851@qq.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/yanquanfahei/test#readme",
+  "homepage": "https://github.com/yanquanfahei/node-example#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanquanfahei/test.git"
+    "url": "git+https://github.com/yanquanfahei/node-example.git"
   },
-  "bugs": "https://github.com/yanquanfahei/test/issues",
+  "bugs": "https://github.com/yanquanfahei/node-example/issues",
   "keywords": [],
   "exports": {
     ".": {
