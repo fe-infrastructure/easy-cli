@@ -68,6 +68,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-alpha-3070720230316001",
     "@dcloudio/vite-plugin-uni": "3.0.0-alpha-3070720230316001",
     "@eye-socket/eslint-config-vue": "^0.0.4",
+    "@eye-socket/stylelint-config": "^0.0.1",
     "@vue/tsconfig": "^0.1.3",
     "chalk": "^5.2.0",
     "eslint": "^8.36.0",
@@ -77,7 +78,6 @@
     "vite": "4.0.4",
     "vue-tsc": "^1.0.24",
     "stylelint": "^15.3.0",
-    "@eye-socket/stylelint-config": "^0.0.1",
     "prettier": "^2.8.7"
   },
   "simple-git-hooks": {
